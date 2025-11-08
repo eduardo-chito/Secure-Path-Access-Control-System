@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Secure Path - Manage Permissions</title>
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+<body>
+    <div class="navbar">
+        <a href="/dashboard">Dashboard</a>
+        {% if permissions_dict.manage_users %}
+        <a href="/users">Manage Users</a>
+        {% endif %}
+        {% if permissions_dict.manage_roles %}
+        <a href="/roles">Manage Roles</a>
+        {% endif %}
+        {% if permissions_dict.manage_permissions %}
+        <a href="/permissions">Manage Permissions</a>
+        {% endif %}
+        {% if permissions_dict.view_logs %}
+        <a href="/logs">View Logs</a>
+        {% endif %}
+        <a href="/logout">Logout</a>
+    </div>
+    <div class="container">
+        <h1>Manage Permissions</h1>
+        <h2>Add Permission</h2>
+        <form method="post" action="/permissions">
+            <input type="hidden" name="action" value="add">
+            <input type="text" name="name" placeholder="Permission Name" required>
+            <input type="text" name="description" placeholder="Description" required>
+            <button type="submit">Add Permission</button>
+        </form>
+        <h2>Assign Permission to Role</h2>
+        <form method="post" action="/permissions">
+            <input type="hidden" name="action" value="assign">
+            <select name="role_id" required>
+                {% for role in roles %}
+                    <option value="{{ role.id }}">{{ role.name }}</option>
+                {% endfor %}
+            </select>
+            <select name="perm_id" required>
+                {% for perm in permissions %}
+                    <option value="{{ perm.id }}">{{ perm.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Assign</button>
+        </form>
+        <h2>Existing Permissions</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+            {% for perm in permissions %}
+                <tr>
+                    <td>{{ perm.id }}</td>
+                    <td>{{ perm.name }}</td>
+                    <td>{{ perm.description }}</td>
+                    <td>
+                        <form method="post" action="/permissions">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="perm_id" value="{{ perm.id }}">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <h2>Role-Permission Assignments</h2>
+        <table>
+            <tr>
+                <th>Role</th>
+                <th>Permission</th>
+            </tr>
+            {% for rp in role_perms %}
+                <tr>
+                    <td>{{ rp.role }}</td>
+                    <td>{{ rp.perm }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

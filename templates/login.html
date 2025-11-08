@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Secure Path - Login</title>
+    <link rel="stylesheet" href="/static/style.css" >
+
+</head>
+<body>
+<div class="login-page">
+<div class="login-container">
+    <h1>Secure Path Login</h1>
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+<form method="post" action="/login">
+    <input type="text" name="username" placeholder="Username" required><br>
+    <input type="password" name="password" placeholder="Password"><br>
+    <button type="submit">Login</button>
+</form>
+    </div>
+</div>
+</body>
+</html>

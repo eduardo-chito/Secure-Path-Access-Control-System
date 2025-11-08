@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Secure Path - Manage Roles</title>
+    <link rel="stylesheet" href="/static/style.css">
+
+</head>
+<body>
+    <div class="navbar">
+        <a href="/dashboard">Dashboard</a>
+        {% if permissions.manage_users %}
+            <a href="/users">Manage Users</a>
+        {% endif %}
+        {% if permissions.manage_roles %}
+            <a href="/roles">Manage Roles</a>
+        {% endif %}
+        {% if permissions.manage_permissions %}
+            <a href="/permissions">Manage Permissions</a>
+        {% endif %}
+        {% if permissions.view_logs %}
+            <a href="/logs">View Logs</a>
+        {% endif %}
+        <a href="/logout">Logout</a>
+    </div>
+    <div class="container">
+        <h1>Manage Roles</h1>
+        <h2>Add Role</h2>
+        <form method="post" action="/roles">
+            <input type="hidden" name="action" value="add">
+            <input type="text" name="name" placeholder="Role Name" required>
+            <button type="submit">Add Role</button>
+        </form>
+        <h2>Existing Roles</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+            {% for role in roles %}
+                <tr>
+                    <td>{{ role.id }}</td>
+                    <td>{{ role.name }}</td>
+                    <td>
+                        <form method="post" action="/roles">
+                            <input type="hidden" name="action" value="delete">
+                            <input type="hidden" name="role_id" value="{{ role.id }}">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
