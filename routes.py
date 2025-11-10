@@ -37,7 +37,7 @@ async def login(
     db_user = c.execute("SELECT * FROM users WHERE username=?", (username,)).fetchone()
     if db_user and bcrypt.checkpw(password.encode('utf-8'), db_user["password"]):
         token = jwt.encode({'sub': str(db_user['id'])}, SECRET_KEY, algorithm=ALGORITHM)
-        response = RedirectResponse(url="/dashboard", status_code=status.HTTP_303_SEE_OTHER)
+        response = RedirectResponse(url="/company", status_code=status.HTTP_303_SEE_OTHER)
         response.set_cookie(key="access_token", value=token, httponly=True)
         log_access(conn, db_user['id'], "Login successful", 1)
         return response
@@ -199,3 +199,17 @@ async def view_logs(request: Request, user:dict = Depends(get_current_user), con
         "view_logs": True
     }
     return templates.TemplateResponse("logs.html", {"request": request, "logs": logs, "permissions": permissions})
+
+@router.get("/company", response_class=HTMLResponse)
+async def company_site(request: Request, user: dict = Depends(get_current_user), conn: sqlite3.Connection = Depends(get_db)):
+    if not await has_permission(user, "access_company", conn):
+        raise HTTPException(status_code=403, detail="Permission denied")
+    permissions = {
+        "manage_users": await has_permission(user, "manage_users", conn),
+        "manage_roles": await has_permission(user, "manage_roles", conn),
+        "manage_permissions": await has_permission(user, "manage_permissions", conn),
+        "view_logs": await has_permission(user, "view_logs", conn),
+        "access_company": await has_permission(user, "access_company", conn)
+    }
+
+    return templates.TemplateResponse("company_home.html", {"request": request, "username": user["username"], "permissions": permissions})
