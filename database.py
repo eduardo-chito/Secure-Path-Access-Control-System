@@ -73,3 +73,4 @@ def get_db():
     try:
         yield conn
     finally:
+        conn.close()
