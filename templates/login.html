@@ -1,23 +1,188 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Secure Path - Login</title>
-    <link rel="stylesheet" href="/static/style.css" >
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecureTech Solutions | Secure Path Login</title>
+    <style>
+        body {
+            font-family: "Segoe UI", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background: linear-gradient(135deg, #004aad 40%, #007bff);
+            color: #333;
+            display: flex;
+            height: 100vh;
+        }
 
+        .info-section {
+            flex: 2;
+            color: white;
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .info-section h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #ffdd57;
+        }
+
+        .info-section h2 {
+            color: #fff;
+            border-bottom: 2px solid #ffdd57;
+            display: inline-block;
+            margin-top: 2rem;
+        }
+
+        .info-section p {
+            line-height: 1.6;
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .info-section strong {
+            color: #ffdd57;
+        }
+
+        .login-section {
+            flex: 1;
+            background: #f8f9fb;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: -2px 0 6px rgba(0, 0, 0, 0.2);
+            padding: 3rem;
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 350px;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .login-box h2 {
+            text-align: center;
+            color: #004aad;
+            margin-bottom: 1rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        input[type="text"], input[type="password"] {
+            margin-bottom: 1rem;
+            padding: 0.6rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #004aad;
+            color: white;
+            border: none;
+            padding: 0.7rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background-color: #003580;
+        }
+
+        .error {
+            color: red;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            text-align: center;
+            color: #ccc;
+            font-size: 0.85rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            body {
+                flex-direction: column;
+            }
+
+            .info-section, .login-section {
+                flex: none;
+                width: 100%;
+                box-shadow: none;
+            }
+
+            .info-section {
+                padding: 2rem;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body>
-<div class="login-page">
-<div class="login-container">
-    <h1>Secure Path Login</h1>
-    {% if error %}
-      <div class="error">{{ error }}</div>
-    {% endif %}
-<form method="post" action="/login">
-    <input type="text" name="username" placeholder="Username" required><br>
-    <input type="password" name="password" placeholder="Password"><br>
-    <button type="submit">Login</button>
-</form>
+    <div class="info-section">
+        <h1>Welcome to SecureTech Solutions!</h1>
+        <h2>Brief History</h2>
+        <p>
+            SecureTech Solutions was founded by a small group of students who met at
+            <strong>Middle Georgia State University</strong>. Their shared passion for technology
+            and protecting sensitive data inspired the creation of a company dedicated
+            to solving real-world access control challanges.
+        </p>
+        <p>
+            The company focuses on providing reliable network solutions for organizations of all sizes,
+            developing systems that manage user access efficiently while protecting sensitive information.
+            SecureTech Solutions works closely with clients to understand their needs and improve workflow
+            security through effective, easy-to-use systems.
+        </p>
+
+        <h2>Mission Statement</h2>
+        <p>
+            Our mission at SecureTech Solutions is to provide advances yet practical cybersecurity solutions
+            that protect sensitive data, simplify access managment and stengthen organizational security
+            for the future. We focus on developing robust access control systems, such as
+            <strong>Secure Path</strong>, ensuring that only authorized users can reach sensitive systems and data
+            while improving both securtiy and operational efficiency.
+        </p>
+
+        <h2>Organizational Structure</h2>
+        <p>
+            SecureTech Solutions operates as a collaborative team dedicated to developing and maintaining
+            secure access control solutions: 
+        </p>
+        <ul>
+            <li><strong>Jacob Crawford</strong> - Project Manager</li>
+            <li><strong>Isaiah Hamler</strong> - Lead Developer</li>
+            <li><strong>Eduardo Osuna Villela</strong> - Systems Analyst</li>
+            <li><strong>Brandon Peters</strong> - UI/UX Designer</li>
+            <li><strong>Victor Wallace</strong> - Security Analyst</li>
+        </ul>
     </div>
-</div>
+
+    <div class="login-section">
+        <div class="login-box">
+            <h2>Login</h2>
+            {% if error %}
+            <p class="error">{{ error }}</p>
+            {% endif %}
+            <form method="post" action="/login">
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

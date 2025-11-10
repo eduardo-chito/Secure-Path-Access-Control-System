@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="veiwport" content="width=device-width, initial-scale=1.0">
+        <title>SecureTech Solutions Company Portal</title>
+        <style>
+            body {
+                font-family: "Segoe UI", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin: 0;
+                background-color: #f4f6f8;
+                color: #333;
+            }
+            header {
+                background-color: #004aad;
+                color: white;
+                padding: 1rem 2rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            header h1 {
+                margin: 0;
+                font-size: 1.5rem;
+            }
+            nav{
+                background-color: #003580;
+                padding: 0.75rem 2rem;
+                display: flex;
+                flex-wrap: wrap;
+            }
+            nav a {
+                color: #ffffff;
+                margin-left: 1.5rem;
+                text-decoration: none;
+                font-weight: 500;
+                transition: color 0.2s ease;
+            }
+            nav a:hover {
+                color: #ffdd57;
+            }
+            main {
+                padding: 2rem;
+                max-width: 1000px;
+                margin: auto;
+            }
+            section {
+                margin-bottom: 2rem;
+                background: white;
+                border-radius: 10px;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                padding: 1.5rem;
+            }
+            section h2 {
+                color: #004aad;
+                border-bottom: 2px solid #004aad;
+                padding-bottom: 0.5rem;
+                margin-top: 0;
+            }
+            footer {
+                background-color: #004aad;
+                color: white;
+                text-align: center;
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+            .logout {
+                background: white;
+                color: #004aad;
+                border-radius: 5px;
+                padding: 0.4rem 0.8rem;
+                text-decoration: none;
+                font-weight: 600;
+            }
+            .logout:hover {
+                background: #e4e8f0;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>SecureTech Solutions Company Portal</h1>
+            <div>
+                <span>Welcome, {{ username }}!</span>
+                <a href="/logout" class="logout">Logout</a>
+            </div>
+        </header>
+
+        <nav>
+            <a href="#news">News</a>
+            <a href="#jobs">Jobs</a>
+            <a href="#pay">Pay</a>
+            <a href="#resources">Resources</a>
+
+            {% if permissions.view_logs %}
+                <a href="/logs">Logs</a>
+            {% endif %}
+                
+            {% if permissions.manage_users or permissions.manage_roles or permissions.manage_permissions %}
+                <a href="/dashboard">Admin Dashboard</a>
+            {% endif %}
+
+        </nav>
+
+        <main>
+            <section id="news">
+                <h2>Company News</h2>
+                <p><strong>10/01/25:</strong> SecureTech launches a new sustainability initiative to reduce waste.</p>
+                <p><strong>09/15/25:</strong> Reminder to sign up for our next CE seminar before deadline.</p>
+                <p><strong>09/01/25:</strong> Submit your ideas for the next team building adventure!</p>
+            </section>
+
+            <section id="jobs">
+                <h2>Internal Job Postings</h2>
+                <ul>
+                    <li>Junior Developer</li>
+                    <li>Security Intern</li>
+                    <li>Social Media Manager</li>
+                </ul>
+            </section>
+
+            <section id="pay">
+                <h2>Pay & Benefits</h2>
+                <p>Access your most recent pay stubs and benefits information below.</p>
+                <ul>
+                    <li><a href="#">View Pay Stub</a></li>
+                    <li><a href="#">Health & Dental Plans</a></li>
+                    <li><a href="#">Time Off</a></li>
+                </ul>
+            </section>
+
+            <section id="resources">
+                <h2>Employee Resources</h2>
+                <ul>
+                    <li><a href="#">Company Handbook</a></li>
+                    <li><a href="#">IT Help Desk</a></li>
+                    <li><a href="#">Training & Development</a></li>
+                    <li><a href="#">Policy Documents</a></li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            &copy; 2025 SecureTech Solutions | Employee Portal | All Rights Reserved
+        </footer>
+    </body>
+</html>
