@@ -1,57 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Secure Path - Manage Roles</title>
-    <link rel="stylesheet" href="/static/style.css">
+{% extends "base.html" %}
+{% block content %}
+<section>
+    <h2>Role Management</h2>
+    
+    <form method="post" action="/roles" style="display: grid; grid-template-columns: 1fr auto; gap: .6rem; align-items: end; max-width: 520px; margin: .5rem 0 1rem; ">
+            <input type="hidden" name="action" value="add" />
+            <div>
+                <label>Role Name</label>
+                <input type="text" name="name" required style="width: 100%; padding: .55rem;">
+            </div>
+            <button class="btn" type="submit">Add Role</button>
+    </form>
 
-</head>
-<body>
-    <div class="navbar">
-        <a href="/company">Back to Company Portal</a>
-        <a href="/dashboard">Dashboard</a>
-        {% if permissions.manage_users %}
-            <a href="/users">Manage Users</a>
-        {% endif %}
-        {% if permissions.manage_roles %}
-            <a href="/roles">Manage Roles</a>
-        {% endif %}
-        {% if permissions.manage_permissions %}
-            <a href="/permissions">Manage Permissions</a>
-        {% endif %}
-        {% if permissions.view_logs %}
-            <a href="/logs">View Logs</a>
-        {% endif %}
-        <a href="/logout">Logout</a>
-    </div>
-    <div class="container">
-        <h1>Manage Roles</h1>
-        <h2>Add Role</h2>
-        <form method="post" action="/roles">
-            <input type="hidden" name="action" value="add">
-            <input type="text" name="name" placeholder="Role Name" required>
-            <button type="submit">Add Role</button>
-        </form>
-        <h2>Existing Roles</h2>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Action</th>
-            </tr>
-            {% for role in roles %}
+    <div style="overflow: auto;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
                 <tr>
-                    <td>{{ role.id }}</td>
-                    <td>{{ role.name }}</td>
-                    <td>
-                        <form method="post" action="/roles">
-                            <input type="hidden" name="action" value="delete">
-                            <input type="hidden" name="role_id" value="{{ role.id }}">
-                            <button type="submit">Delete</button>
+                    <th style="padding: .5rem; border-bottom: 1px solid #e5e7eb;">ID</th>
+                    <th style="padding: .5rem; border-bottom: 1px solid #e5e7eb;">Name</th>
+                    <th style="padding: .5rem; border-bottom: 1px solid #e5e7eb;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for role in roles %}
+                <tr>
+                    <td style="padding: .5rem; border-bottom: 1px solid #e5e7eb;">{{ role.id }}</td>
+                    <td style="padding: .5rem; border-bottom: 1px solid #e5e7eb;">{{ role.name }}</td>
+                    <td style="padding: .5rem; border-bottom: 1px solid #e5e7eb;">
+                        <form method="post" action="/roles" onsubmit="return confirm('Delete role {{ role.name }}?');" style="display: inline;">
+                            <input type="hidden" name="action" value="delete" />
+                            <input type="hidden" name="role_id" value="{{ role.id }}" />
+                            <button class="btn" type="submit" style="background: #b91c1c;">Delete</button>
                         </form>
                     </td>
                 </tr>
-            {% endfor %}
+                {% endfor %}
+            </tbody>
         </table>
     </div>
-</body>
-</html>
+</section>
+{% endblock %}

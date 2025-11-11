@@ -1,48 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Secure Path - Access Logs</title>
-    <link rel="stylesheet" href="/static/style.css">
-
-</head>
-<body>
-    <div class="navbar">
-        <a href="/company">Back to Company Portal</a>
-        <a href="/dashboard">Dashboard</a>
-        {% if permissions.manage_users %}
-        <a href="/users">Manage Users</a>
-        {% endif %}
-        {% if permissions.manage_roles %}
-        <a href="/roles">Manage Roles</a>
-        {% endif %}
-        {% if permissions.manage_permissions %}
-        <a href="/permissions">Manage Permissions</a>
-        {% endif %}
-        {% if permissions.view_logs %}
-        <a href="/logs">View Logs</a>
-        {% endif %}
-        <a href="/logout">Logout</a>
-    </div>
-    <div class="container">
-        <h1>Access Logs</h1>
-        <table>
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>Action</th>
-                <th>Timestamp</th>
-                <th>Success</th>
-            </tr>
-            {% for log in logs %}
+{% extends "base.html" %}
+{% block content %}
+<section>
+    <h2>Access Logs</h2>
+    <div style="overflow: auto;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
                 <tr>
-                    <td>{{ log.id }}</td>
-                    <td>{{ log.username or 'N/A' }}</td>
-                    <td>{{ log.action }}</td>
-                    <td>{{ log.timestamp }}</td>
-                    <td>{{ 'Yes' if log.success else 'No' }}</td>
+                    <th style="text-align: left; padding: .5rem; border-bottom: 2px solid #004aad;">ID</th>
+                    <th style="text-align: left; padding: .5rem; border-bottom: 2px solid #004aad;">Username</th>
+                    <th style="text-align: left; padding: .5rem; border-bottom: 2px solid #004aad;">Action</th>
+                    <th style="text-align: left; padding: .5rem; border-bottom: 2px solid #004aad;">Timestamp</th>
+                    <th style="text-align: left; padding: .5rem; border-bottom: 2px solid #004aad;">Success</th>
                 </tr>
-            {% endfor %}
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td style="padding: .5rem; border-bottom: 1px solid #e5e7eb;">{{ log.id }}</td>
+                    <td style="padding: .5rem; border-bottom: 1px solid #e5e7eb;">{{ log.username or 'N/A' }}</td>
+                    <td style="padding: .5rem; border-bottom: 1px solid #e5e7eb;">{{ log.action }}</td>
+                    <td style="padding: .5rem; border-bottom: 1px solid #e5e7eb;">{{ log.timestamp }}</td>
+                    <td style="padding: .5rem; border-bottom: 1px solid #e5e7eb;">{{ 'Yes' if log.success else 'No' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </div>
-</body>
-</html>
+</section>
+{% endblock %}

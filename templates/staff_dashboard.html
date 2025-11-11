@@ -1,0 +1,29 @@
+ {% extends "base.html" %}
+
+ {% block content %}
+ <section>
+    <h2>Staff Dashboard</h2>
+    <p>Welcome, {{ username }}. Below are your internal work documents and resources. Please review them regularly to stay informed about SecurePath policies and operations.</p>
+
+    <div class="card">
+        <h3>Workplace Safety Policy</h3>
+        <p>This document outlines the key safety standards and reporting procedures all employees must follow. Ensure compliance with PPE usage and emergency response protocols.</p>
+    </div>
+
+    <div class="card">
+        <h3>Daily Task Report </h3>
+        <p>This section includes the standardized report format for tracking daily assignments, completed work, and upcoming tasks. Use this guide when submitting end-of-day summaries.</p>
+    </div>
+
+    <div class="card">
+        <h3>SecurePath Operations Manual</h3>
+        <p>An overview of internal systems, workflows, and staff responsibilities. This manual provides guidance on using SecurePath tools and maintaining secure data-handling practices.</p>
+    </div>
+
+    <div class="card">
+        <h3>Confidential Data Policy</h3>
+        <p>Details how confidential data must be stored, shared, and disposed of. All staff are required to follow these guidelines to ensure ongoing data security compliance.</p>
+    </div>
+ </section>
+ {% endblock %}
+    

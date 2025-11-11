@@ -1,31 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Secure Path - Dashboard</title>
-    <link rel="stylesheet" href="/static/style.css">
+{% extends "base.html" %}
+{% block content %}
+<section>
+    <h2>Admin Dashboard</h2>
+    <p>Welcome, {{ username }}. Use the links below to manage the system.</p>
 
-</head>
-<body>
-    <div class="navbar">
-        <a href="/company">Back to Company Portal</a>
-        <a href="/dashboard">Dashboard</a>
-        {% if permissions.manage_users %}
-            <a href="/users">Manage Users</a>
-        {% endif %}
-        {% if permissions.manage_roles %}
-            <a href="/roles">Manage Roles</a>
-        {% endif %}
-        {% if permissions.manage_permissions %}
-            <a href="/permissions">Manage Permissions</a>
-        {% endif %}
-        {% if permissions.view_logs %}
-            <a href="/logs">View Logs</a>
-        {% endif %}
-        <a href="/logout">Logout</a>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1rem;">
+        <a class="btn" href="/users">Manage Users</a>
+        <a class="btn" href="/roles">Manage Roles</a>
+        <a class="btn" href="/permissions">Manage Permissions</a>
+        <a class="btn" href="/logs">View Logs</a>
+        <a class="btn" href="/company">Company Site</a>
     </div>
-    <div class="container">
-        <h1>Welcome, {{ username }}!</h1>
-        <p>This is the Secure Path dashboard.</p>
-    </div>
-</body>
-</html>
+</section>
+
+{% if permissions and (permissions.manage_users or permissions.manage_roles or permissions.manage_permissions) %}
+<section>
+    <h2>Quick Stats</h2>
+    <ul>
+        <li>You're currently signed in as <strong>{{ username }}</strong></li>
+        <li>Allowed:
+            {% if permissions.manage_users %} manage_users {% endif %}
+            {% if permissions.manage_roles %} | manage_roles {% endif %}
+            {% if permissions.manage_permissions %} | manage_permissions {% endif %}
+            {% if permissions.view_logs %} | view_logs {% endif %}
+        </li>
+    </ul>
+</section>
+{% endif %}
+{% endblock %}
