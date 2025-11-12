@@ -27,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for perm in permissions %}
+                {% for perm in all_permissions %}
                 <tr>
                     <td style="padding: .5rem; border-bottom: 1px solid #e5e7eb;">{{ perm.id }}</td>
                     <td style="padding: .5rem; border-bottom: 1px solid #e5e7eb;">{{ perm.name }}</td>
@@ -60,7 +60,7 @@
             <div>
                 <label>Permissions</label>
                 <select name="perm_id" required style="width: 100%; padding: .55rem;">
-                    {% for perm in permissions %}
+                    {% for perm in all_permissions %}
                         <option value="{{ perm.id }}">{{ perm.name }}</option>
                     {% endfor %}
                 </select>

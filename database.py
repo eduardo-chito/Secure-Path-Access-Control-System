@@ -50,8 +50,7 @@ def init_db():
 
     guest_perms = [
         (guest_id, perm_ids['view_dashboard']),
-        (guest_id, perm_ids['access_guest_page']),
-        (staff_id, perm_ids['access_company'])
+        (guest_id, perm_ids['access_guest_page'])
     ]
 
     c.executemany("INSERT OR IGNORE INTO role_permissions (role_id, permission_id) VALUES (?,?)",
